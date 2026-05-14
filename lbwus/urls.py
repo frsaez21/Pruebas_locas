@@ -16,12 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('alumnos/', include('alumnos.urls')),
     path('admin_portal/', include('admin_portal.urls')),
+    path('profesor/', include('user_profesor.urls')),
 
     path("accounts/", include("django.contrib.auth.urls")),
-
+    
+    # Redirigir la raíz ("localhost:8000/") hacia "localhost:8000/alumnos/"
+    path('', RedirectView.as_view(url='/alumnos/', permanent=True)),
 ]
